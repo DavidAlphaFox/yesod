@@ -228,6 +228,7 @@ defaultMaybeAuthId
     :: (YesodAuthPersist master, Typeable (AuthEntity master))
     => HandlerT master IO (Maybe (AuthId master))
 defaultMaybeAuthId = runMaybeT $ do
+    -- 从session中用默认的key找到认证的ID
     s   <- MaybeT $ lookupSession credsKey
     aid <- MaybeT $ return $ fromPathPiece s
     _   <- MaybeT $ cachedAuth aid

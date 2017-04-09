@@ -100,6 +100,7 @@ instance YesodAuthEmail A2 where
     setPassword email password = runDB $
         updateWhere [EmailEmailEq email] [EmailPassword $ Just password]
     getEmailCreds email = runDB $ do
+        -- 从数据库中得到email关联的email纪录
         x <- getBy $ UniqueEmail email
         case x of
             Nothing -> return Nothing

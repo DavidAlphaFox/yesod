@@ -851,6 +851,7 @@ lookupSession = (liftM . fmap) (decodeUtf8With lenientDecode) . lookupSessionBS
 -- | Lookup for session data in binary format.
 lookupSessionBS :: MonadHandler m => Text -> m (Maybe S.ByteString)
 lookupSessionBS n = do
+    -- 从Map中找到相应的数据
     m <- liftM ghsSession get
     return $ Map.lookup n m
 

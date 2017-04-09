@@ -416,6 +416,7 @@ $newline never
 
 postLoginR :: YesodAuthEmail master => HandlerT Auth (HandlerT master IO) TypedContent
 postLoginR = do
+    -- 获取用户的email和输入的密码
     (identifier, pass) <- lift $ runInputPost $ (,)
         <$> ireq textField "email"
         <*> ireq textField "password"
