@@ -71,6 +71,7 @@ masterTypeSyns vs site =
 -- | 'Left' arguments indicate a monomorphic type, a 'Right' argument
 --   indicates a polymorphic type, and provides the list of classes
 --   the type must be instance of.
+-- 创建yesod的instance等
 mkYesodGeneral :: String                   -- ^ foundation type
                -> [Either String [String]] -- ^ arguments for the type
                -> Bool                     -- ^ is this a subsite
@@ -110,6 +111,7 @@ mkYesodGeneral namestr args isSub resS = do
                  ) ([],vns,[]) args
         site = foldl' AppT (ConT name) argtypes
         res = map (fmap parseType) resS
+        -- 生成Router和Dispatch
     renderRouteDec <- mkRenderRouteInstance site res
     routeAttrsDec  <- mkRouteAttrsInstance site res
     dispatchDec    <- mkDispatchInstance site cxt res
